@@ -2,7 +2,7 @@
    $insert= false;
    $server="localhost";
 $username="root";
-$password="priyanka";
+$password="";
 $database ="Users";
 
 $conn=mysqli_connect($server,$username,$password,$database);
