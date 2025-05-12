@@ -9,18 +9,18 @@ $input = json_decode(file_get_contents("php://input"),true);
 
 switch($method){
     case 'GET':
-        if(isset($id)){
+        if(isset($_GET['id'])){
             $id = $_GET['id'];
-            $query = mysqli_query($conn,'select * from apiusers');
+            $query = mysqli_query($conn,'select * from apiusers where id= "$id');
 
-            json_encode(fetch_assoc($query));
+           echo json_encode(fetch_assoc($query));
         }else{
             $query = mysqli_query($conn,'select * from apiusers');
             $data=[];
             while($row= mysqli_fetch_assoc($query)){
                 $data[] = $row;
             }
-            json_encode($data);
+         echo   json_encode($data);
         }
         break;
     case 'POST':
@@ -41,7 +41,8 @@ switch($method){
             $query= mysqli_query($conn,"update apiusers set name='$name' , email='$email' where id='$id");
            echo json_encode(["status"=>200,"message"=>"Updateed succesfully"]);
            
-        }; break;
+        }; 
+        break;
         case "DELETE":
             $id= $_GET['id'];
             $query =mysqli_query($conn,"Delete from apiusers where id='$id'");
